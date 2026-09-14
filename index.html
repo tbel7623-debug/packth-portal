@@ -1,94 +1,145 @@
 <!doctype html>
-<html lang="th"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PACKTH Admin - หลังบ้าน</title>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PACKTH Customer Portal</title>
 <style>
-:root{--g:#8cc51f;--dark:#3f454b;--line:#e4e8eb;--bg:#f4f6f3;--muted:#7b838b}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Thai",sans-serif;background:var(--bg);color:#2d3237}
-header{background:#fff;border-bottom:1px solid var(--line)}.wrap{max-width:1250px;margin:auto;padding:18px}.head{display:flex;align-items:center;justify-content:space-between}
-.panel,.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.login{max-width:420px;margin:70px auto}.hide{display:none!important}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{border:0;border-radius:9px;padding:10px 13px;background:#edf2e5;color:#4f671e;font-weight:700;cursor:pointer}.tab.active{background:var(--g);color:white}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi{font-size:28px;font-weight:800}.muted{color:var(--muted);font-size:13px}
-label{display:block;font-size:13px;font-weight:700;margin:8px 0 6px}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #d8dee2;border-radius:9px;font:inherit}
-.btn{border:0;border-radius:9px;padding:10px 13px;font-weight:700;cursor:pointer}.green{background:var(--g);color:#fff}.soft{background:#eef4e3;color:#56721f}.red{background:#fff0f0;color:#b83232}
-table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:10px;border-bottom:1px solid #edf0f2;text-align:left;font-size:13px}th{background:#f7f9f6}.tablewrap{overflow:auto}.section{margin-top:18px}.formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.badge{padding:5px 9px;border-radius:999px;background:#eef5df;color:#5c7f18;font-size:12px;font-weight:700}
-@media(max-width:850px){.grid4,.formgrid{grid-template-columns:1fr}.wrap{padding:12px}}
-</style></head>
+:root{--green:#8cc51f;--green2:#72ad00;--dark:#41464c;--muted:#7b838b;--line:#e7ebee;--bg:#f6f8f5;--white:#fff;--orange:#f39c12}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Thai",sans-serif;background:var(--bg);color:#2e3338}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.wrap{max-width:1150px;margin:auto;padding:0 18px}
+.top{height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand img{width:160px;height:58px;object-fit:contain}
+.nav{display:flex;gap:18px;font-size:14px}.nav a{text-decoration:none;color:#596168}
+.hero{background:linear-gradient(135deg,#eff8dc,#fff);border-bottom:1px solid #dfe9cf}.hero .wrap{padding-top:42px;padding-bottom:42px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+.hero h1{font-size:38px;margin:0 0 12px}.hero p{color:#667078;line-height:1.7;margin:0 0 20px}
+.heroBadge{background:#fff;border:1px solid #dbe8c7;border-radius:20px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.heroBadge b{font-size:20px;color:#5d8611}.heroBadge ul{margin:12px 0 0;padding-left:20px;color:#667078;line-height:1.9}
+.section{padding:30px 0}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,.03)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.title{font-size:24px;margin:0 0 16px}.sub{color:var(--muted);font-size:14px;margin-top:-8px;margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}input,textarea,select{width:100%;padding:13px 14px;border:1px solid #d9dfe3;border-radius:10px;font:inherit;background:#fff;outline:none}
+textarea{min-height:95px;resize:vertical}.btn{border:0;border-radius:10px;padding:13px 18px;font-weight:700;cursor:pointer}.btn.primary{background:var(--green);color:#fff}.btn.soft{background:#eef5df;color:#5c7f18}.btn.orange{background:#fff3df;color:#a86400}
+.row{display:flex;gap:12px;align-items:end}.row>div{flex:1}#result{display:none;margin-top:18px}
+.orderHead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding-bottom:15px;border-bottom:1px solid var(--line)}
+.statusPill{background:#eef7d9;color:#5a7f13;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.meta .box{background:#f8faf7;border-radius:12px;padding:14px}.meta small{display:block;color:#8a9298;margin-bottom:6px}
+.timeline{margin-top:22px}.step{display:grid;grid-template-columns:26px 1fr;gap:12px;position:relative;padding-bottom:19px}.step:not(:last-child):after{content:"";position:absolute;left:12px;top:22px;width:2px;height:calc(100% - 3px);background:#dfe5da}
+.dot{width:24px;height:24px;border-radius:50%;background:#dfe5da;border:6px solid #fff;box-shadow:0 0 0 2px #dfe5da}.step.done .dot{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+.step strong{display:block;margin-bottom:3px}.step small{color:#838b92}.stars{display:flex;gap:6px;font-size:28px;cursor:pointer;color:#ccd2d5}.stars span.on{color:#f4b400}
+.reviewList{display:grid;gap:12px}.review{border:1px solid var(--line);border-radius:12px;padding:14px}.review .rTop{display:flex;justify-content:space-between}.review .rStars{color:#f4b400}
+.pickbox{border:1px solid #e8e0cb;background:#fffdf8;border-radius:14px;padding:18px}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#f1f4ef;font-size:12px}
+footer{padding:26px 0;color:#818a90;text-align:center;font-size:13px}
+@media(max-width:800px){.hero .wrap,.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:30px}.meta{grid-template-columns:1fr 1fr}.nav{display:none}.row{flex-direction:column;align-items:stretch}}
+</style>
+</head>
 <body>
-<header><div class="wrap head"><b>PACKTH • ADMIN (หลังบ้าน)</b><a href="customer.html" target="_blank" style="font-size:13px; color:#8cc51f; font-weight:700; text-decoration:none;">ไปหน้าเว็บไซต์ลูกค้า ↗</a></div></header>
+<header><div class="wrap top"><div class="brand"><b>📦 PACKTH</b></div><nav class="nav"><a href="#track">เช็กสินค้า</a><a href="#review">รีวิว</a></nav></div></header>
+
+<section class="hero"><div class="wrap">
+<div><h1>เช็กสถานะสินค้าและดูรีวิวจากลูกค้า</h1><p>ตรวจสอบคำสั่งซื้อ ติดตามสถานะการผลิต ดูเลขพัสดุ และส่งรีวิวได้จากหน้าเดียว</p><a class="btn primary" href="#track" style="display:inline-block;text-decoration:none">ตรวจสอบสถานะ</a></div>
+<div class="heroBadge"><b>PACKTH Customer Portal</b><ul><li>เช็กคำสั่งซื้อด้วยเลขออเดอร์ + เบอร์โทร</li><li>ติดตามสถานะการผลิตและจัดส่ง</li><li>ดูรีวิวและความพึงพอใจจากลูกค้าท่านอื่น</li></ul></div>
+</div></section>
+
 <main class="wrap">
-<section id="login" class="panel login"><h2>เข้าสู่ระบบหลังบ้าน</h2><label>Username</label><input id="user" value="admin"><label>Password</label><input id="pass" type="password" value="PACKTH2026"><button class="btn green" style="margin-top:14px" onclick="doLogin()">เข้าสู่ระบบ</button><div class="muted" style="margin-top:8px">บัญชีทดสอบ: admin / PACKTH2026</div></section>
+<section id="track" class="section"><div class="card">
+<h2 class="title">ตรวจสอบคำสั่งซื้อ</h2><div class="sub">กรอกเลขที่คำสั่งซื้อและเบอร์โทรศัพท์</div>
+<div class="row"><div><label>เลขที่คำสั่งซื้อ</label><input id="orderNo" placeholder="เช่น PK-26091401"></div><div><label>เบอร์โทรศัพท์</label><input id="phone" placeholder="08xxxxxxxx"></div><button class="btn primary" onclick="lookupOrder()">ตรวจสอบ</button></div>
+<div id="msg" class="sub" style="margin-top:10px"></div><div id="result"></div>
+</div></section>
 
-<section id="app" class="hide">
-<div class="tabs">
-<button class="tab active" onclick="openTab('dash',this)">Dashboard</button>
-<button class="tab" onclick="openTab('orders',this)">จัดการคำสั่งซื้อและออกเลขพัสดุ</button>
-<button class="tab" onclick="openTab('pickups',this)">แจ้งขนส่งเข้ารับสินค้า</button>
-<button class="tab" onclick="openTab('reviews',this)">จัดการรีวิว</button>
-</div>
-
-<div id="dash" class="page"><div class="grid4">
-<div class="card"><div class="muted">คำสั่งซื้อทั้งหมด</div><div id="kOrders" class="kpi">0</div></div>
-<div class="card"><div class="muted">คำขอเข้ารับสินค้า</div><div id="kPickups" class="kpi">0</div></div>
-<div class="card"><div class="muted">รีวิวทั้งหมด</div><div id="kReviews" class="kpi">0</div></div>
-<div class="card"><div class="muted">จัดส่งแล้ว</div><div id="kShipped" class="kpi">0</div></div>
-</div></div>
-
-<div id="orders" class="page hide">
-<section class="panel"><h2>เพิ่ม / กำหนดเลขพัสดุและสถานะให้ลูกค้า</h2>
-<div class="formgrid">
-<div><label>เลขออเดอร์</label><input id="oNo" placeholder="เช่น PK-26091401"></div>
-<div><label>เบอร์โทรลูกค้า (สำหรับให้ลูกค้าใช้เช็ค)</label><input id="oPhone" placeholder="0812345678"></div>
-<div><label>ชื่อลูกค้า</label><input id="oCustomer" placeholder="คุณสมชาย"></div>
-<div><label>รายการสินค้า</label><input id="oProduct" placeholder="กล่องพัสดุ"></div>
-<div><label>จำนวน</label><input id="oQty" placeholder="100"></div>
-<div><label>ยอดรวม (บาท)</label><input id="oAmount" placeholder="1500"></div>
-<div><label>สถานะพัสดุ</label><input id="oStatus" placeholder="เช่น กำลังจัดส่ง"></div>
-<div><label>🎯 ออกเลขพัสดุ (Tracking No.)</label><input id="oTracking" placeholder="เช่น FLASH-987654321"></div>
-<div><label>กำหนดถึง (ETA)</label><input id="oEta" placeholder="15 ก.ย. 2569"></div>
-<div><label>ขั้นตอน</label><select id="oStep"><option value="1">1 รับคำสั่งซื้อ</option><option value="2">2 กำลังผลิต</option><option value="3">3 QC</option><option value="4">4 รอขนส่งเข้ารับ</option><option value="5">5 จัดส่งแล้ว</option><option value="6">6 ส่งถึงลูกค้า</option></select></div>
-</div><button class="btn green" style="margin-top:12px" onclick="saveOrder()">บันทึก / ออกเลขพัสดุ</button> <button class="btn soft" onclick="clearOrder()">ล้างฟอร์ม</button></section>
-<section class="panel section"><h2>รายการคำสั่งซื้อทั้งหมด</h2><div class="tablewrap"><table><thead><tr><th>ออเดอร์</th><th>เบอร์โทร</th><th>ลูกค้า</th><th>สินค้า</th><th>สถานะ</th><th>Tracking (เลขพัสดุ)</th><th>ขั้นตอน</th><th>จัดการ</th></tr></thead><tbody id="orderRows"></tbody></table></div></section>
-</div>
-
-<div id="pickups" class="page hide">
-<section class="panel"><h2>แจ้งขนส่งเข้ารับสินค้า</h2>
-<div class="muted" style="margin-bottom:12px">จัดการคำขอเข้ารับสินค้าจากลูกค้า</div><div class="tablewrap"><table><thead><tr><th>วันที่ขอ</th><th>ออเดอร์</th><th>ผู้ติดต่อ</th><th>ที่อยู่</th><th>วัน/เวลา</th><th>พัสดุ</th><th>ขนส่ง</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="pickupRows"></tbody></table></div></section>
-</div>
-
-<div id="reviews" class="page hide">
-<section class="panel"><h2>จัดการรีวิวจากลูกค้า</h2><div id="reviewRows"></div></section>
-</div>
-</section>
+<section id="review" class="section"><div class="grid2">
+<div class="card"><h2 class="title">รีวิวสินค้า</h2><div class="sub">รีวิวจะเผยแพร่หลังจากแอดมินอนุมัติ</div>
+<label>เลขที่คำสั่งซื้อ</label><input id="rvOrder" placeholder="PK-26091401">
+<div style="height:12px"></div><label>ชื่อผู้รีวิว</label><input id="rvName" placeholder="ชื่อหรือชื่อเล่น">
+<div style="height:12px"></div><label>คะแนน</label><div class="stars" id="stars"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div>
+<div style="height:12px"></div><label>ความคิดเห็น</label><textarea id="rvText" placeholder="คุณภาพสินค้า การแพ็ก และการจัดส่ง"></textarea>
+<button class="btn primary" style="margin-top:12px" onclick="submitReview()">ส่งรีวิว</button><div id="rvMsg" class="sub" style="margin-top:10px"></div></div>
+<div class="card"><h2 class="title">รีวิวจากลูกค้าท่านอื่น</h2><div id="reviewList" class="reviewList"></div></div>
+</div></section>
 </main>
+
+<footer>PACKTH • Customer Tracking & Review System</footer>
 <script>
 const DBKEY='packth_full_system_v1';
-function seed(){return {orders:[],pickups:[],reviews:[],customers:[]}}
-function loadDB(){let x=localStorage.getItem(DBKEY);if(x){try{return JSON.parse(x)}catch(e){}}let d=seed();localStorage.setItem(DBKEY,JSON.stringify(d));return d}
-function saveDB(d){localStorage.setItem(DBKEY,JSON.stringify(d))}
-let db=loadDB();
-function doLogin(){if(user.value==='admin'&&pass.value==='PACKTH2026'){login.classList.add('hide');app.classList.remove('hide');renderAll()}else alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')}
-function openTab(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderAll()}
-function renderAll(){db=loadDB();kOrders.textContent=db.orders.length;kPickups.textContent=db.pickups.filter(x=>x.status!=='เสร็จสิ้น').length;kReviews.textContent=db.reviews.length;kShipped.textContent=db.orders.filter(x=>Number(x.step)>=5).length;renderOrders();renderPickups();renderReviews()}
-
-function saveOrder(){
- db=loadDB();
- let obj={orderNo:oNo.value.trim(),phone:oPhone.value.trim(),customer:oCustomer.value.trim(),product:oProduct.value.trim(),qty:oQty.value.trim(),amount:oAmount.value.trim(),status:oStatus.value.trim(),tracking:oTracking.value.trim()||'ยังไม่มีเลขพัสดุ',eta:oEta.value.trim(),step:Number(oStep.value)};
- if(!obj.orderNo||!obj.phone||!obj.customer)return alert('กรุณากรอกเลขออเดอร์ เบอร์โทร และชื่อลูกค้า');
- let i=db.orders.findIndex(x=>x.orderNo===obj.orderNo);if(i>=0)db.orders[i]=obj;else db.orders.push(obj);
- saveDB(db);clearOrder();renderAll();alert('✅ บันทึกและออกเลขพัสดุสำเร็จ');
+function loadDB(){
+ let x=localStorage.getItem(DBKEY);
+ if(x){try{return JSON.parse(x)}catch(e){}}
+ let d={
+  orders:[
+   {orderNo:'PK-26091401',phone:'0812345678',customer:'คุณณิชา',product:'กล่องบรรจุภัณฑ์พิมพ์โลโก้',qty:'500 ใบ',amount:'฿8,900',status:'กำลังผลิต',tracking:'-',eta:'18 ก.ย. 2569',step:2},
+   {orderNo:'PK-26091402',phone:'0899998888',customer:'คุณสมชาย',product:'กล่องไดคัท',qty:'1,000 ใบ',amount:'฿15,500',status:'จัดส่งแล้ว',tracking:'TH1234567890',eta:'15 ก.ย. 2569',step:5}
+  ],
+  pickups:[],
+  reviews:[{id:'R1',orderNo:'PK-26091402',name:'ลูกค้าตัวอย่าง',rating:5,text:'งานเรียบร้อย แพ็กดี และติดตามสถานะสะดวกมากค่ะ',approved:true,date:'14 ก.ย. 2569'}]
+ };
+ localStorage.setItem(DBKEY,JSON.stringify(d));
+ return d;
 }
-function clearOrder(){['oNo','oPhone','oCustomer','oProduct','oQty','oAmount','oStatus','oTracking','oEta'].forEach(id=>document.getElementById(id).value='');oStep.value='1'}
-function editO(no){db=loadDB();let o=db.orders.find(x=>x.orderNo===no);if(!o)return;oNo.value=o.orderNo;oPhone.value=o.phone;oCustomer.value=o.customer;oProduct.value=o.product;oQty.value=o.qty;oAmount.value=o.amount;oStatus.value=o.status;oTracking.value=o.tracking;oEta.value=o.eta;oStep.value=o.step;openTab('orders',document.querySelectorAll('.tab')[1])}
-function delO(no){if(!confirm('ลบออเดอร์นี้?'))return;db=loadDB();db.orders=db.orders.filter(x=>x.orderNo!==no);saveDB(db);renderAll()}
+function saveDB(d){localStorage.setItem(DBKEY,JSON.stringify(d))}
+let db=loadDB(),selectedRating=5;
 
-function renderOrders(){orderRows.innerHTML=db.orders.length?db.orders.map(o=>`<tr><td><b>${esc(o.orderNo)}</b></td><td>${esc(o.phone)}</td><td>${esc(o.customer)}</td><td>${esc(o.product)}</td><td><span class="badge">${esc(o.status||'รอดำเนินการ')}</span></td><td><span style="color:red; font-weight:bold;">${esc(o.tracking)}</span></td><td>${o.step}</td><td><button class="btn soft" onclick="editO('${o.orderNo}')">แก้ไข</button> <button class="btn red" onclick="delO('${o.orderNo}')">ลบ</button></td></tr>`).join(''):'<tr><td colspan="8">ยังไม่มีคำสั่งซื้อ</td></tr>'}
+function lookupOrder(){
+ db=loadDB();
+ const no=document.getElementById('orderNo').value.trim();
+ const ph=document.getElementById('phone').value.trim();
+ const o=db.orders.find(x=>x.orderNo===no&&x.phone===ph);
+ const msg=document.getElementById('msg');
+ const result=document.getElementById('result');
+ msg.textContent='';
+ if(!o){result.style.display='none';msg.textContent='ไม่พบข้อมูล กรุณาตรวจสอบเลขคำสั่งซื้อและเบอร์โทรอีกครั้ง';return}
+ result.style.display='block';
+ result.innerHTML=`<div class="orderHead"><div><h3 style="margin:0 0 6px">${esc(o.orderNo)}</h3><div class="sub" style="margin:0">ลูกค้า: ${esc(o.customer)}</div></div><div class="statusPill">${esc(o.status)}</div></div>
+ <div class="meta"><div class="box"><small>สินค้า</small><b>${esc(o.product)}</b></div><div class="box"><small>จำนวน</small><b>${esc(o.qty)}</b></div><div class="box"><small>ยอดรวม</small><b>${esc(o.amount)}</b></div><div class="box"><small>กำหนดถึงโดยประมาณ</small><b>${esc(o.eta)}</b></div></div>
+ <div class="pickbox" style="margin-top:16px"><b>ข้อมูลจัดส่ง</b><div style="margin-top:8px">เลขพัสดุ: <b>${esc(o.tracking||'-')}</b></div></div>
+ <div class="timeline">${timelineHTML(Number(o.step||1))}</div>`;
+ document.getElementById('rvOrder').value=o.orderNo;
+}
 
-function renderPickups(){pickupRows.innerHTML=db.pickups.length?db.pickups.slice().reverse().map(p=>`<tr><td>${new Date(p.createdAt).toLocaleString('th-TH')}</td><td>${esc(p.orderNo)}</td><td>${esc(p.contact)}<br>${esc(p.phone)}</td><td style="max-width:260px">${esc(p.address)}</td><td>${esc(p.date)}<br>${esc(p.time)}</td><td>${esc(p.boxes||'-')} ลัง / ${esc(p.weight||'-')} กก.</td><td>${esc(p.carrier)}</td><td><select onchange="setPickup('${p.id}',this.value)"><option ${p.status==='รอเจ้าหน้าที่รับเรื่อง'?'selected':''}>รอเจ้าหน้าที่รับเรื่อง</option><option ${p.status==='ประสานขนส่งแล้ว'?'selected':''}>ประสานขนส่งแล้ว</option><option ${p.status==='ขนส่งเข้ารับแล้ว'?'selected':''}>ขนส่งเข้ารับแล้ว</option><option ${p.status==='เสร็จสิ้น'?'selected':''}>เสร็จสิ้น</option></select></td><td><button class="btn red" onclick="delPickup('${p.id}')">ลบ</button></td></tr>`).join(''):'<tr><td colspan="9">ยังไม่มีคำขอ</td></tr>'}
-function setPickup(id,v){db=loadDB();let p=db.pickups.find(x=>x.id===id);if(p)p.status=v;saveDB(db);renderAll()}
-function delPickup(id){if(!confirm('ลบคำขอนี้?'))return;db=loadDB();db.pickups=db.pickups.filter(x=>x.id!==id);saveDB(db);renderAll()}
+function timelineHTML(step){
+ const s=[['รับคำสั่งซื้อแล้ว','ตรวจสอบรายละเอียดคำสั่งซื้อ'],['กำลังผลิต / เตรียมสินค้า','เริ่มดำเนินการตามรายการ'],['ตรวจคุณภาพ','QC ก่อนส่ง'],['รอขนส่งเข้ารับ','ประสานขนส่งและนัดหมาย'],['จัดส่งสินค้า','สินค้าออกจากต้นทางแล้ว'],['ส่งถึงลูกค้า','ปิดงานเรียบร้อย']];
+ return s.map((x,i)=>`<div class="step ${i<step?'done':''}"><div class="dot"></div><div><strong>${x[0]}</strong><small>${x[1]}</small></div></div>`).join('');
+}
 
-function renderReviews(){reviewRows.innerHTML=db.reviews.length?db.reviews.slice().reverse().map((r,i)=>`<div class="card section"><b>${esc(r.name)} • ${'★'.repeat(r.rating)}</b><div class="muted">ออเดอร์: ${esc(r.orderNo)} • ${esc(r.date)}</div><p>${esc(r.text)}</p><button class="btn red" onclick="delReview(${i})">ลบรีวิวนี้</button></div>`).join(''):'<div class="muted">ยังไม่มีรีวิว</div>'}
-function delReview(i){if(!confirm('ลบรีวิวนี้?'))return;db=loadDB();db.reviews.splice(i,1);saveDB(db);renderAll()}
+document.querySelectorAll('#stars span').forEach(s=>s.onclick=()=>{selectedRating=+s.dataset.v;paintStars()});
+function paintStars(){document.querySelectorAll('#stars span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=selectedRating))}paintStars();
+
+function submitReview(){
+ db=loadDB();
+ const order=document.getElementById('rvOrder').value.trim();
+ const name=document.getElementById('rvName').value.trim();
+ const text=document.getElementById('rvText').value.trim();
+ const rvMsg=document.getElementById('rvMsg');
+ if(!order||!name||!text){rvMsg.textContent='กรุณากรอกข้อมูลให้ครบ';return}
+ if(!db.orders.some(o=>o.orderNo===order)){rvMsg.textContent='ไม่พบเลขคำสั่งซื้อนี้ในระบบ';return}
+ db.reviews.push({id:'R'+Date.now(),orderNo:order,name,rating:selectedRating,text,approved:false,date:new Date().toLocaleDateString('th-TH')});
+ saveDB(db);
+ rvMsg.textContent='ขอบคุณค่ะ รีวิวถูกส่งให้เจ้าหน้าที่ตรวจสอบแล้ว';
+ document.getElementById('rvName').value='';
+ document.getElementById('rvText').value='';
+ renderReviews();
+}
+
+function renderReviews(){
+ db=loadDB();
+ const arr=(db.reviews||[]).filter(r=>r.approved);
+ const reviewList=document.getElementById('reviewList');
+ reviewList.innerHTML=arr.length?arr.slice().reverse().map(r=>`<div class="review"><div class="rTop"><b>${esc(r.name)}</b><span class="rStars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span></div><div style="margin-top:8px">${esc(r.text)}</div><div class="sub" style="margin:8px 0 0">${esc(r.date)}</div></div>`).join(''):'<div class="sub">ยังไม่มีรีวิวที่เผยแพร่</div>';
+}
+
 function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-</script></body></html>
+
+window.onload=function(){
+ renderReviews();
+ // รองรับการเปิดผ่าน URL เช่น customer.html?no=PK-26091401&phone=0812345678
+ const urlParams = new URLSearchParams(window.location.search);
+ const qNo = urlParams.get('no');
+ const qPh = urlParams.get('phone');
+ if(qNo && qPh){
+  document.getElementById('orderNo').value = qNo;
+  document.getElementById('phone').value = qPh;
+  lookupOrder();
+ }
+};
+</script>
+</body>
+</html>
