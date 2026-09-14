@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PACKTH - Customer Portal & Admin System</title>
+    <title>PACKTH - Customer Portal & Reviews</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,13 +27,21 @@
             <a href="#" class="text-2xl font-bold text-gray-800 flex items-center gap-1">
                 <span class="text-brand">PACKTH</span>
             </a>
-            <div class="flex items-center gap-4 text-sm font-medium">
-                <nav class="space-x-4 text-gray-600">
+            <div class="flex items-center gap-3 text-sm font-medium">
+                <nav class="hidden md:space-x-4 text-gray-600 md:flex">
                     <a href="#track-section" class="hover:text-brand transition">เช็คสินค้า</a>
-                    <a href="#review-section" class="hover:text-brand transition">รีวิว</a>
+                    <a href="#review-section" class="hover:text-brand transition">รีวิวสินค้า</a>
                 </nav>
-                <button onclick="openLoginModal()" class="bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg hover:bg-gray-700 transition">
-                    ⚙️ เข้าสู่ระบบหลังบ้าน
+                
+                <!-- Customer Auth Area -->
+                <div id="customerNavArea" class="flex items-center gap-2">
+                    <button onclick="openCustomerAuthModal('login')" class="text-xs bg-brand text-white px-3.5 py-2 rounded-xl hover:bg-brand-hover transition shadow-sm">
+                        เข้าสู่ระบบ / สมัครสมาชิก
+                    </button>
+                </div>
+
+                <button onclick="openLoginModal()" class="bg-gray-800 text-white text-xs px-3 py-2 rounded-xl hover:bg-gray-700 transition">
+                    ⚙️ หลังบ้าน
                 </button>
             </div>
         </div>
@@ -42,24 +50,31 @@
     <main class="max-w-6xl mx-auto px-4 py-8 space-y-8 w-full flex-grow">
 
         <!-- Hero Section -->
-        <section class="bg-brand-light rounded-3xl p-6 md:p-10 flex flex-col lg:flex-row justify-between items-center gap-8 border border-green-100">
+        <section class="bg-brand-light rounded-3xl p-6 md:p-10 flex flex-col lg:flex-row justify-between items-center gap-8 border border-green-100 shadow-sm">
             <div class="space-y-4 max-w-xl">
+                <div id="welcomeUserBanner" class="hidden text-xs font-semibold bg-brand text-white px-3 py-1 rounded-full w-max">ยินดีต้อนรับสมาชิก</div>
                 <h1 class="text-2xl md:text-4xl font-bold leading-tight text-gray-900">
-                    เช็คสถานะสินค้าและเรียกขนส่งได้ในหน้าเดียว
+                    เช็คสถานะสินค้าและรีวิวบริการได้ในหน้าเดียว
                 </h1>
                 <p class="text-gray-600 text-sm md:text-base">
-                    ตรวจสอบคำสั่งซื้อ ติดตามสถานะการผลิต ดูเลขพัสดุ และส่งรีวิวได้จากหน้าเดียว
+                    สมัครสมาชิกเพื่อติดตามคำสั่งซื้อ ตรวจสอบเลขพัสดุ และแชร์รีวิวความประทับใจให้สมาชิกท่านอื่นเห็นได้ทันที
                 </p>
-                <a href="#track-section" class="inline-block bg-brand hover:bg-brand-hover text-white font-medium px-6 py-3 rounded-xl shadow hover:shadow-md transition">
-                    ตรวจสอบสถานะ
-                </a>
+                <div class="flex gap-3">
+                    <a href="#track-section" class="inline-block bg-brand hover:bg-brand-hover text-white font-medium px-6 py-3 rounded-xl shadow transition text-sm">
+                        ตรวจสอบสถานะพัสดุ
+                    </a>
+                    <button onclick="openCustomerAuthModal('register')" class="inline-block bg-white border border-brand text-brand hover:bg-brand-light font-medium px-6 py-3 rounded-xl transition text-sm">
+                        สมัครสมาชิกใหม่
+                    </button>
+                </div>
             </div>
             <div class="bg-white p-6 rounded-2xl border border-green-200/60 shadow-sm w-full lg:w-96 space-y-3">
                 <h2 class="text-lg font-bold text-brand">PACKTH Customer Portal</h2>
                 <ul class="space-y-2 text-sm text-gray-600">
-                    <li>• เช็คคำสั่งซื้อด้วยเลขออเดอร์ + เบอร์โทร</li>
-                    <li>• ติดตามสถานะการผลิตและจัดส่ง real-time</li>
-                    <li>• ส่งรีวิวสินค้าหลังได้รับของ</li>
+                    <li>• ระบบจดจำการเข้าสู่ระบบอัตโนมัติ</li>
+                    <li>• เช็คคำสั่งซื้อและเลขพัสดุตลอด 24 ชม.</li>
+                    <li>• เขียนรีวิวพร้อมให้คะแนนดาวได้ทันที</li>
+                    <li>• รีวิวแสดงผลให้ทุกคนเห็นร่วมกัน</li>
                 </ul>
             </div>
         </section>
@@ -67,8 +82,8 @@
         <!-- Search / Order Tracking Form -->
         <section id="track-section" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
             <div class="mb-6">
-                <h2 class="text-xl font-bold text-gray-800">ตรวจสอบคำสั่งซื้อ</h2>
-                <p class="text-xs text-gray-500">กรอกเลขที่คำสั่งซื้อและเบอร์โทรศัพท์ที่ใช้สั่งซื้อ</p>
+                <h2 class="text-xl font-bold text-gray-800">ตรวจสอบคำสั่งซื้อและพัสดุ</h2>
+                <p class="text-xs text-gray-500">กรอกเลขที่คำสั่งซื้อและเบอร์โทรศัพท์ที่ใช้สมัครหรือสั่งซื้อ</p>
             </div>
 
             <form onsubmit="handleTrackSearch(event)" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
@@ -95,8 +110,8 @@
         <!-- Customer Review Section -->
         <section id="review-section" class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
-                <h2 class="text-xl font-bold text-gray-800">รีวิวสินค้า</h2>
-                <p class="text-xs text-gray-500 mb-6">รีวิวจะเผยแพร่บนหน้าเว็บหลังเจ้าหน้าที่ตรวจสอบและอนุมัติ</p>
+                <h2 class="text-xl font-bold text-gray-800">เขียนรีวิวและให้คะแนนสินค้า</h2>
+                <p class="text-xs text-gray-500 mb-6">รีวิวของคุณจะแสดงผลให้ลูกค้าท่านอื่นเห็นในหน้าเว็บทันที</p>
 
                 <form onsubmit="handleReviewSubmit(event)" class="space-y-4">
                     <div class="space-y-1">
@@ -105,12 +120,12 @@
                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-brand text-sm">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-xs font-semibold text-gray-700">ชื่อผู้รีวิว</label>
-                        <input type="text" id="revName" required placeholder="ชื่อหรือชื่อเล่น"
+                        <label class="text-xs font-semibold text-gray-700">ชื่อผู้รีวิว (หรือชื่อสมาชิก)</label>
+                        <input type="text" id="revName" required placeholder="ชื่อของคุณ"
                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-brand text-sm">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-xs font-semibold text-gray-700">ให้คะแนน</label>
+                        <label class="text-xs font-semibold text-gray-700">ให้คะแนนดาว</label>
                         <div class="flex gap-1 text-2xl text-amber-400 cursor-pointer" id="starContainer">
                             <span onclick="setRating(1)">★</span>
                             <span onclick="setRating(2)">★</span>
@@ -124,15 +139,16 @@
                         <textarea id="revComment" rows="3" required placeholder="คุณภาพสินค้า การแพ็ค และการจัดส่ง..."
                                   class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-brand text-sm resize-none"></textarea>
                     </div>
-                    <button type="submit" class="bg-brand hover:bg-brand-hover text-white font-medium py-2.5 px-6 rounded-xl shadow transition text-sm">
-                        ส่งรีวิว
+                    <button type="submit" class="w-full bg-brand hover:bg-brand-hover text-white font-medium py-3 rounded-xl shadow transition text-sm">
+                        โพสต์รีวิวทันที
                     </button>
                 </form>
             </div>
 
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
-                <h2 class="text-xl font-bold text-gray-800 mb-6">รีวิวจากลูกค้า</h2>
-                <div id="approvedReviewsList" class="space-y-4 max-h-[420px] overflow-y-auto pr-2"></div>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
+                <h2 class="text-xl font-bold text-gray-800 mb-1">รีวิวจากลูกค้าทั้งหมด</h2>
+                <p class="text-xs text-gray-500 mb-6">ความประทับใจจากสมาชิกทุกคนในระบบ</p>
+                <div id="allReviewsList" class="space-y-4 max-h-[440px] overflow-y-auto pr-1 flex-grow"></div>
             </div>
         </section>
 
@@ -140,22 +156,69 @@
         <section id="adminPanel" class="hidden bg-gray-900 text-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-700 space-y-4">
             <div class="flex justify-between items-center border-b border-gray-700 pb-4">
                 <div>
-                    <h3 class="text-lg font-bold text-brand">⚙️ Admin Dashboard (ระบบจัดการหลังบ้าน)</h3>
-                    <p class="text-xs text-gray-400">ตรวจสอบและกดอนุมัติรีวิวจากลูกค้าก่อนแสดงผลจริง</p>
+                    <h3 class="text-lg font-bold text-brand">⚙️ Admin Dashboard (จัดการรีวิว)</h3>
+                    <p class="text-xs text-gray-400">คุณสามารถลบรีวิวที่ไม่เหมาะสมออกได้จากส่วนนี้</p>
                 </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30">Admin Mode</span>
-                    <button onclick="logoutAdmin()" class="text-xs bg-red-600/80 hover:bg-red-600 text-white px-3 py-1 rounded-full transition">ออกจากระบบ</button>
-                </div>
+                <button onclick="logoutAdmin()" class="text-xs bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-xl transition">ออกจากระบบหลังบ้าน</button>
             </div>
-
             <div class="space-y-3">
-                <h4 class="text-sm font-semibold text-gray-300">รายการรีวิวรอการอนุมัติ (Pending Reviews)</h4>
-                <div id="pendingReviewsList" class="space-y-3 max-h-60 overflow-y-auto"></div>
+                <h4 class="text-sm font-semibold text-gray-300">จัดการรีวิวทั้งหมดในระบบ</h4>
+                <div id="adminReviewsList" class="space-y-3 max-h-60 overflow-y-auto"></div>
             </div>
         </section>
 
     </main>
+
+    <!-- Customer Auth Modal (Login / Register) -->
+    <div id="customerAuthModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 md:p-8 max-w-sm w-full shadow-2xl space-y-6 relative border border-gray-100">
+            <button onclick="closeCustomerAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg">✕</button>
+            
+            <div class="flex border-b border-gray-200 text-sm font-semibold">
+                <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 pb-2 text-brand border-b-2 border-brand">เข้าสู่ระบบ</button>
+                <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="flex-1 pb-2 text-gray-400">สมัครสมาชิก</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="customerLoginForm" onsubmit="handleCustomerLogin(event)" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-gray-700">เบอร์โทรศัพท์ / อีเมล</label>
+                    <input type="text" id="loginPhone" required placeholder="08xxxxxxxx หรืออีเมล"
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-brand text-sm">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-gray-700">รหัสผ่าน</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••"
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-brand text-sm">
+                </div>
+                <button type="submit" class="w-full bg-brand hover:bg-brand-hover text-white font-medium py-2.5 rounded-xl shadow transition text-sm">
+                    เข้าสู่ระบบ
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="customerRegisterForm" onsubmit="handleCustomerRegister(event)" class="hidden space-y-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-gray-700">ชื่อ-นามสกุล / ชื่อเล่น</label>
+                    <input type="text" id="regName" required placeholder="คุณสมชาย"
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-brand text-sm">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-gray-700">เบอร์โทรศัพท์ / อีเมล</label>
+                    <input type="text" id="regPhone" required placeholder="08xxxxxxxx หรืออีเมล"
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-brand text-sm">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-gray-700">ตั้งรหัสผ่าน</label>
+                    <input type="password" id="regPassword" required placeholder="••••••••"
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-brand text-sm">
+                </div>
+                <button type="submit" class="w-full bg-brand hover:bg-brand-hover text-white font-medium py-2.5 rounded-xl shadow transition text-sm">
+                    ยืนยันสมัครสมาชิก
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Admin Login Modal -->
     <div id="loginModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -182,13 +245,12 @@
                     เข้าสู่ระบบ
                 </button>
             </form>
-
-            <p class="text-xs text-gray-400 text-center">บัญชีทดสอบ: admin / PACKTH2026</p>
+            <p class="text-xs text-gray-400 text-center">ค่าเริ่มต้น: admin / PACKTH2026</p>
         </div>
     </div>
 
     <footer class="text-center py-6 text-xs text-gray-400 border-t border-gray-200/60 mt-12">
-        PACKTH • Customer Tracking & Review System
+        PACKTH • Customer Portal & All Reviews System
     </footer>
 
     <script>
@@ -197,18 +259,123 @@
             "PK-26091402": { phone: "0898765432", name: "คุณนภา", status: "กำลังผลิตสินค้า", courier: "JT Express", trackingNo: "ยังไม่มีเลขพัสดุ", items: "ซองไปรษณีย์พลาสติก x 500 ชิ้น" }
         };
 
-        let reviewsDB = [
-            { id: 1, orderId: "PK-26091401", name: "ลูกค้าตัวอย่าง", rating: 5, comment: "งานเรียบร้อย แพ็คดี และติดตามสถานะสะดวกมากค่ะ", date: "14 ก.ย. 2569", status: "approved" }
+        // ระบบบันทึกข้อมูลสมาชิกและจดจำการเข้าสู่ระบบอัตโนมัติ
+        let customersDB = JSON.parse(localStorage.getItem('packth_customers')) || [
+            { name: "คุณสมชาย", phone: "0812345678", password: "123" }
+        ];
+        let currentCustomer = JSON.parse(localStorage.getItem('packth_current_customer')) || null;
+
+        let reviewsDB = JSON.parse(localStorage.getItem('packth_reviews')) || [
+            { id: 1, orderId: "PK-26091401", name: "คุณสมชาย", rating: 5, comment: "งานเรียบร้อย แพ็คดี และติดตามสถานะสะดวกมากครับ", date: "14 ก.ย. 2569" }
         ];
 
         let selectedRating = 5;
 
-        document.addEventListener('DOMContentLoaded', () => { renderReviews(); });
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCustomerUI();
+            renderReviews();
+        });
 
         function setRating(rating) {
             selectedRating = rating;
             const stars = document.querySelectorAll('#starContainer span');
             stars.forEach((star, i) => { star.className = i < rating ? 'text-amber-400 cursor-pointer' : 'text-gray-300 cursor-pointer'; });
+        }
+
+        // Customer Auth Functions
+        function openCustomerAuthModal(mode = 'login') {
+            document.getElementById('customerAuthModal').classList.remove('hidden');
+            switchAuthTab(mode);
+        }
+        function closeCustomerAuthModal() { document.getElementById('customerAuthModal').classList.add('hidden'); }
+
+        function switchAuthTab(tab) {
+            const loginBtn = document.getElementById('tabLoginBtn');
+            const regBtn = document.getElementById('tabRegisterBtn');
+            const loginForm = document.getElementById('customerLoginForm');
+            const regForm = document.getElementById('customerRegisterForm');
+
+            if (tab === 'login') {
+                loginBtn.className = "flex-1 pb-2 text-brand border-b-2 border-brand font-semibold";
+                regBtn.className = "flex-1 pb-2 text-gray-400";
+                loginForm.classList.remove('hidden');
+                regForm.classList.add('hidden');
+            } else {
+                regBtn.className = "flex-1 pb-2 text-brand border-b-2 border-brand font-semibold";
+                loginBtn.className = "flex-1 pb-2 text-gray-400";
+                regForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            }
+        }
+
+        function handleCustomerRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (customersDB.some(c => c.phone === phone)) {
+                alert("❌ เบอร์โทรศัพท์หรืออีเมลนี้ถูกใช้งานสมัครสมาชิกแล้ว กรุณาเข้าสู่ระบบ");
+                return;
+            }
+
+            customersDB.push({ name, phone, password });
+            localStorage.setItem('packth_customers', JSON.stringify(customersDB));
+
+            // จดจำข้อมูลเข้าสู่ระบบอัตโนมัติ
+            currentCustomer = { name, phone };
+            localStorage.setItem('packth_current_customer', JSON.stringify(currentCustomer));
+
+            updateCustomerUI();
+            closeCustomerAuthModal();
+            alert(`🎉 สมัครสมาชิกและจดจำข้อมูลสำเร็จ! ยินดีต้อนรับคุณ ${name}`);
+        }
+
+        function handleCustomerLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            const found = customersDB.find(c => c.phone === phone && c.password === password);
+            if (found) {
+                currentCustomer = { name: found.name, phone: found.phone };
+                // จดจำข้อมูลการล็อกอินไว้ในเครื่อง
+                localStorage.setItem('packth_current_customer', JSON.stringify(currentCustomer));
+                updateCustomerUI();
+                closeCustomerAuthModal();
+                alert(`✅ เข้าสู่ระบบสำเร็จและจดจำข้อมูลแล้ว ยินดีต้อนรับกลับมาครับ คุณ${found.name}`);
+            } else {
+                alert("❌ เบอร์โทรศัพท์/อีเมล หรือรหัสผ่านไม่ถูกต้อง");
+            }
+        }
+
+        function logoutCustomer() {
+            currentCustomer = null;
+            localStorage.removeItem('packth_current_customer'); // ล้างข้อมูลการจดจำเมื่อกดออกจากระบบ
+            updateCustomerUI();
+            alert("🔒 ออกจากระบบสมาชิกเรียบร้อยแล้ว");
+        }
+
+        function updateCustomerUI() {
+            const area = document.getElementById('customerNavArea');
+            const banner = document.getElementById('welcomeUserBanner');
+            if (currentCustomer) {
+                area.innerHTML = `
+                    <span class="text-xs text-gray-700 hidden md:inline font-semibold">👤 ${currentCustomer.name}</span>
+                    <button onclick="logoutCustomer()" class="text-xs bg-red-100 text-red-600 hover:bg-red-200 px-3 py-2 rounded-xl transition font-medium">ออกจากระบบ</button>
+                `;
+                banner.classList.remove('hidden');
+                banner.textContent = `ยินดีต้อนรับคุณ ${currentCustomer.name} (จดจำการเข้าสู่ระบบแล้ว)`;
+                document.getElementById('revName').value = currentCustomer.name;
+                document.getElementById('trackPhone').value = currentCustomer.phone;
+            } else {
+                area.innerHTML = `
+                    <button onclick="openCustomerAuthModal('login')" class="text-xs bg-brand text-white px-3.5 py-2 rounded-xl hover:bg-brand-hover transition shadow-sm">
+                        เข้าสู่ระบบ / สมัครสมาชิก
+                    </button>
+                `;
+                banner.classList.add('hidden');
+            }
         }
 
         function handleTrackSearch(e) {
@@ -228,7 +395,7 @@
                                 <span class="text-xs text-gray-500">เลขที่คำสั่งซื้อ: <strong class="text-gray-800">${orderId}</strong></span>
                                 <div class="text-lg font-bold text-brand">${order.status}</div>
                             </div>
-                            <span class="bg-brand text-white text-xs px-3 py-1 rounded-full">พบข้อมูล</span>
+                            <span class="bg-brand text-white text-xs px-3 py-1 rounded-full">พบข้อมูลพัสดุ</span>
                         </div>
                         <hr class="border-green-200/60">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-700">
@@ -241,7 +408,7 @@
             } else {
                 resultBox.innerHTML = `
                     <div class="bg-red-50 p-4 rounded-xl border border-red-200 text-red-600 text-sm">
-                        ❌ <strong>ไม่พบข้อมูล:</strong> กรุณาตรวจสอบเลขคำสั่งซื้อและเบอร์โทรศัพท์ให้อีกครั้ง
+                        ❌ <strong>ไม่พบข้อมูลพัสดุ:</strong> กรุณาตรวจสอบเลขคำสั่งซื้อและเบอร์โทรศัพท์ให้อีกครั้ง
                     </div>`;
             }
         }
@@ -252,79 +419,60 @@
             const name = document.getElementById('revName').value.trim();
             const comment = document.getElementById('revComment').value.trim();
 
-            if (!mockOrdersDB[orderId]) {
-                alert("❌ ไม่พบเลขที่คำสั่งซื้อนี้ในระบบ กรุณาตรวจสอบอีกครั้ง");
-                return;
-            }
-
             const now = new Date();
             const newReview = {
                 id: Date.now(),
-                orderId: orderId,
+                orderId: orderId || "ทั่วไป",
                 name: name,
                 rating: selectedRating,
                 comment: comment,
-                date: `${now.getDate()} ก.ย. ${now.getFullYear() + 543}`,
-                status: 'pending'
+                date: `${now.getDate()} ก.ย. ${now.getFullYear() + 543}`
             };
 
             reviewsDB.unshift(newReview);
+            localStorage.setItem('packth_reviews', JSON.stringify(reviewsDB));
             renderReviews();
 
             document.getElementById('revOrderId').value = '';
-            document.getElementById('revName').value = '';
             document.getElementById('revComment').value = '';
+            if(!currentCustomer) document.getElementById('revName').value = '';
             setRating(5);
 
-            alert("✅ ส่งรีวิวสำเร็จแล้ว! รีวิวของคุณอยู่ระหว่างรอเจ้าหน้าที่ตรวจสอบและอนุมัติ");
-        }
-
-        function approveReview(id) {
-            const rev = reviewsDB.find(r => r.id === id);
-            if (rev) rev.status = 'approved';
-            renderReviews();
+            alert("🎉 โพสต์รีวิวสำเร็จ! ความคิดเห็นและดาวของคุณถูกแสดงในหน้ารีวิวทันที");
         }
 
         function deleteReview(id) {
             reviewsDB = reviewsDB.filter(r => r.id !== id);
+            localStorage.setItem('packth_reviews', JSON.stringify(reviewsDB));
             renderReviews();
         }
 
         function renderReviews() {
-            const approvedBox = document.getElementById('approvedReviewsList');
-            const pendingBox = document.getElementById('pendingReviewsList');
+            const allReviewsBox = document.getElementById('allReviewsList');
+            const adminReviewsBox = document.getElementById('adminReviewsList');
 
-            const approvedList = reviewsDB.filter(r => r.status === 'approved');
-            const pendingList = reviewsDB.filter(r => r.status === 'pending');
-
-            if (approvedList.length === 0) {
-                approvedBox.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">ยังไม่มีรีวิวที่ได้รับการอนุมัติ</p>`;
+            if (reviewsDB.length === 0) {
+                allReviewsBox.innerHTML = `<p class="text-xs text-gray-400 text-center py-8">ยังไม่มีรีวิวจากลูกค้า เป็นคนแรกที่รีวิวเลย!</p>`;
+                adminReviewsBox.innerHTML = `<p class="text-xs text-gray-400 py-2">ไม่มีรีวิวในระบบ</p>`;
             } else {
-                approvedBox.innerHTML = approvedList.map(r => `
-                    <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50 space-y-2">
+                allReviewsBox.innerHTML = reviewsDB.map(r => `
+                    <div class="p-4 rounded-2xl border border-gray-100 bg-gray-50/50 space-y-2 shadow-sm">
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-sm text-gray-800">${escapeHtml(r.name)}</span>
-                            <div class="text-amber-400 text-sm">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+                            <span class="font-bold text-sm text-gray-800">👤 ${escapeHtml(r.name)}</span>
+                            <div class="text-amber-400 text-sm tracking-widest">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
                         </div>
-                        <p class="text-xs text-gray-600">${escapeHtml(r.comment)}</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">${escapeHtml(r.comment)}</p>
                         <div class="text-[10px] text-gray-400">${r.date} • ออเดอร์ #${r.orderId}</div>
                     </div>
                 `).join('');
-            }
 
-            if (pendingList.length === 0) {
-                pendingBox.innerHTML = `<p class="text-xs text-gray-400 py-2">ไม่มีรีวิวค้างรอการอนุมัติ</p>`;
-            } else {
-                pendingBox.innerHTML = pendingList.map(r => `
-                    <div class="p-3 bg-gray-800 rounded-lg border border-gray-700 flex justify-between items-center gap-4 text-xs">
+                adminReviewsBox.innerHTML = reviewsDB.map(r => `
+                    <div class="p-3 bg-gray-800 rounded-xl border border-gray-700 flex justify-between items-center gap-4 text-xs">
                         <div class="space-y-1">
-                            <div class="font-bold text-white">${escapeHtml(r.name)} (${'★'.repeat(r.rating)}) <span class="text-gray-400 font-normal">#${r.orderId}</span></div>
+                            <div class="font-bold text-white">👤 ${escapeHtml(r.name)} (${'★'.repeat(r.rating)}) <span class="text-gray-400 font-normal">#${r.orderId}</span></div>
                             <div class="text-gray-300">${escapeHtml(r.comment)}</div>
                         </div>
-                        <div class="flex gap-2 shrink-0">
-                            <button onclick="approveReview(${r.id})" class="bg-brand hover:bg-brand-hover text-white px-3 py-1 rounded font-medium">อนุมัติ</button>
-                            <button onclick="deleteReview(${r.id})" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded">ลบ</button>
-                        </div>
+                        <button onclick="deleteReview(${r.id})" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg shrink-0 transition">ลบรีวิว</button>
                     </div>
                 `).join('');
             }
@@ -350,7 +498,7 @@
 
         function logoutAdmin() {
             document.getElementById('adminPanel').classList.add('hidden');
-            alert('🔒 ออกจากระบบเรียบร้อยแล้ว');
+            alert('🔒 ออกจากระบบหลังบ้านเรียบร้อยแล้ว');
         }
 
         function escapeHtml(str) {
